@@ -8,15 +8,31 @@ import {
     ActivityIndicator,
     Image,
 } from "react-native";
+import Alert from "../components/Alert";
 
 const Register = ({ navigation }) => {
-    const [fullName, setFullName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null)
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        password: ''
+    })
+    const { name, email, password } = formData
+    const onChange = (field, text) => {
+        setFormData((prevState) => ({
+            ...prevState,
+            [field]: text,
+        }))
+    }
 
     const handleRegister = async () => {
-        console.log(fullName);
+        if (!email || !password) {
+            setError('Please fill al fields');
+            setTimeout(() => {
+                setError(null)
+            }, 2000)
+        }else console.log(formData);
     };
 
     return (
@@ -28,21 +44,27 @@ const Register = ({ navigation }) => {
                 />
             </View>
             <View style={styles.wrapper}>
+                {error && (
+                    <Alert color="white" msg={error} bgc="rgba(255, 0, 0, 0.4)" />
+                )}
                 <TextInput
                     style={styles.input}
-                    onChangeText={(text) => setFullName(text)}
-                    placeholder="Full Name"
+                    onChangeText={(text) => onChange("name", text)}
+                    value={name}
+                    placeholder="Your name"
                 />
                 <TextInput
                     style={styles.input}
-                    onChangeText={(text) => setEmail(text)}
+                    onChangeText={(text) => onChange("email", text)}
+                    value={email}
                     placeholder="Email"
                 />
                 <TextInput
                     style={styles.input}
                     placeholder="Password"
                     secureTextEntry={true}
-                    onChangeText={(text) => setPassword(text)}
+                    onChangeText={(text) => onChange("password", text)}
+                    value={password}
                 />
                 {loading ? (
                     <ActivityIndicator size="large" color="#1E90FF" />
