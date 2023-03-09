@@ -22,7 +22,7 @@ const Login = ({ navigation }) => {
       [field]: text,
     }))
   }
-  const handleRegister = async () => {
+  const handleLogin = async () => {
     console.log(formData);
   };
 
@@ -51,7 +51,7 @@ const Login = ({ navigation }) => {
           <ActivityIndicator size="large" color="#1E90FF" />
         ) : (
           <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText} onPress={handleRegister}>
+            <Text style={styles.buttonText} onPress={handleLogin}>
               Login
             </Text>
           </TouchableOpacity>
