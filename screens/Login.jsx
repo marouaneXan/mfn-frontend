@@ -8,9 +8,11 @@ import {
   ActivityIndicator,
   Image,
 } from "react-native";
+import Alert from "../components/Alert";
 
 const Login = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
+  const [error,setError]=useState(null)
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -23,7 +25,12 @@ const Login = ({ navigation }) => {
     }))
   }
   const handleLogin = async () => {
-    console.log(formData);
+    if (!email || !password) {
+      setError('Please fill al fields');
+      setTimeout(() => {
+        setError(null)
+      }, 2000)
+    }
   };
 
   return (
@@ -34,6 +41,9 @@ const Login = ({ navigation }) => {
           source={require("../images/logo.gif")} />
       </View>
       <View style={styles.wrapper}>
+        {error && (
+          <Alert color="white" msg={error} bgc="rgba(255, 0, 0, 0.4)" />
+        )}
         <TextInput
           style={styles.input}
           onChangeText={(text) => onChange("email", text)}
