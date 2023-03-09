@@ -6,17 +6,24 @@ import {
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
-  Alert,
   Image,
 } from "react-native";
 
 const Login = ({ navigation }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  })
+  const { email, password } = formData
+  const onChange = (field, text) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [field]: text,
+    }))
+  }
   const handleRegister = async () => {
-    
+    console.log(formData);
   };
 
   return (
@@ -29,14 +36,16 @@ const Login = ({ navigation }) => {
       <View style={styles.wrapper}>
         <TextInput
           style={styles.input}
-          onChangeText={(text) => setEmail(text)}
+          onChangeText={(text) => onChange("email", text)}
+          value={email}
           placeholder="Email"
         />
         <TextInput
           style={styles.input}
           placeholder="Password"
           secureTextEntry={true}
-          onChangeText={(text) => setPassword(text)}
+          onChangeText={(text) => onChange("password", text)}
+          value={password}
         />
         {loading ? (
           <ActivityIndicator size="large" color="#1E90FF" />
