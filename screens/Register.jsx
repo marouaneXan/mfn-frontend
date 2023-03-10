@@ -32,7 +32,7 @@ const Register = ({ navigation }) => {
             setTimeout(() => {
                 setError(null)
             }, 2000)
-        }else console.log(formData);
+        } else console.log(formData);
     };
 
     return (
@@ -83,6 +83,16 @@ const Register = ({ navigation }) => {
                             onPress={() => navigation.navigate("Login")}
                         >
                             Login
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+                <View>
+                    <TouchableOpacity>
+                        <Text
+                            style={styles.link}
+                            onPress={() => navigation.navigate("Map")}
+                        >
+                            Go to Map
                         </Text>
                     </TouchableOpacity>
                 </View>
