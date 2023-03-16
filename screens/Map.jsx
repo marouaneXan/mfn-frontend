@@ -1,15 +1,14 @@
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker,Callout } from 'react-native-maps';
 import { StyleSheet, View,TouchableOpacity,Text } from 'react-native';
 
 const Map = ({navigation}) => {
+  
   return (
     <View style={styles.container}>
-      <MapView style={styles.map} >
-      <Marker
-            coordinate={{latitude: 37.78825,longitude: -122.4324}}
-            title={"title"}
-            description={"description"}
-         />
+      <MapView style={styles.map} 
+      >
+      <Marker coordinate={{latitude: 37.78825,longitude: -122.4324}}>
+      </Marker>
       </MapView>
       <View style={styles.button}>
         <TouchableOpacity>

@@ -8,8 +8,8 @@ const RootStack=()=>{
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                <Stack.Screen name='Companies' component={Companies}  />
                 <Stack.Screen name='Register' component={Register} options={{ headerShown: false }}  />
+                <Stack.Screen name='Companies' component={Companies}  />
                 <Stack.Screen name='Map' component={Map} options={{ headerShown: false }}  />
             </Stack.Navigator>
         </NavigationContainer>
