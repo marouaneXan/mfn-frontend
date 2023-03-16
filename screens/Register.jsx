@@ -147,6 +147,11 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "center",
     },
+    links: {
+        display: 'flex',
+        flexDirection: 'row',
+        marginTop: '5px'
+    }
 });
 
 export default Register;
