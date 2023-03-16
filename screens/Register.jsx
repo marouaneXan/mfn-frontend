@@ -14,11 +14,14 @@ const Register = ({ navigation }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null)
     const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        password: ''
+        companyName: '',
+        phoneNumber: '',
+        companyNumber: '',
+        companyAddress: '',
+        longitude: '',
+        latitude: ''
     })
-    const { name, email, password } = formData
+    const { companyName, phoneNumber, companyNumber, companyAddress, longitude, latitude } = formData
     const onChange = (field, text) => {
         setFormData((prevState) => ({
             ...prevState,
@@ -27,7 +30,7 @@ const Register = ({ navigation }) => {
     }
 
     const handleRegister = async () => {
-        if (!email || !password) {
+        if (!companyName || !phoneNumber || !companyNumber || !companyAddress || !longitude || !latitude) {
             setError('Please fill al fields');
             setTimeout(() => {
                 setError(null)
@@ -49,43 +52,67 @@ const Register = ({ navigation }) => {
                 )}
                 <TextInput
                     style={styles.input}
-                    onChangeText={(text) => onChange("name", text)}
-                    value={name}
-                    placeholder="Your name"
+                    onChangeText={(text) => onChange("companyName", text)}
+                    value={companyName}
+                    placeholder="Your companyName"
                 />
                 <TextInput
                     style={styles.input}
-                    onChangeText={(text) => onChange("email", text)}
-                    value={email}
-                    placeholder="Email"
+                    onChangeText={(text) => onChange("phoneNumber", text)}
+                    value={phoneNumber}
+                    placeholder="phoneNumber"
                 />
                 <TextInput
                     style={styles.input}
-                    placeholder="Password"
+                    placeholder="companyNumber"
                     secureTextEntry={true}
-                    onChangeText={(text) => onChange("password", text)}
-                    value={password}
+                    onChangeText={(text) => onChange("companyNumber", text)}
+                    value={companyNumber}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="companyNumber"
+                    secureTextEntry={true}
+                    onChangeText={(text) => onChange("companyNumber", text)}
+                    value={companyNumber}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="companyNumber"
+                    secureTextEntry={true}
+                    onChangeText={(text) => onChange("companyNumber", text)}
+                    value={companyNumber}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="companyAddress"
+                    secureTextEntry={true}
+                    onChangeText={(text) => onChange("companyAddress", text)}
+                    value={companyAddress}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="longitude"
+                    secureTextEntry={true}
+                    onChangeText={(text) => onChange("longitude", text)}
+                    value={longitude}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="latitude"
+                    secureTextEntry={true}
+                    onChangeText={(text) => onChange("latitude", text)}
+                    value={latitude}
                 />
                 {loading ? (
                     <ActivityIndicator size="large" color="#1E90FF" />
                 ) : (
                     <TouchableOpacity style={styles.button}>
                         <Text style={styles.buttonText} onPress={handleRegister}>
-                            Register
+                            Create
                         </Text>
                     </TouchableOpacity>
                 )}
-                <View style={{ flexDirection: "row", marginTop: 20 }}>
-                    <Text>Already have an account?</Text>
-                    <TouchableOpacity>
-                        <Text
-                            style={styles.link}
-                            onPress={() => navigation.navigate("Login")}
-                        >
-                            Login
-                        </Text>
-                    </TouchableOpacity>
-                </View>
                 <View>
                     <TouchableOpacity>
                         <Text
