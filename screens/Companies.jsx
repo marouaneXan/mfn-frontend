@@ -28,7 +28,7 @@ const Companies = () => {
       >
         {companies?.map((company) => (
           <View style={styles.cart} key={company._id}>
-            <Text>Company name : {company.company_name}</Text>
+            <Text>Company name : {company.companyName}</Text>
             <Text>Phone number : {company.phoneNumber}</Text>
             <Text>Company Number : {company.companyNumber}</Text>
             <Text>Company adress : {company.companyAddress}</Text>
