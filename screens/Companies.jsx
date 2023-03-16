@@ -1,7 +1,23 @@
-import { View, Text, ScrollView,StyleSheet } from 'react-native'
-import React from 'react'
+import { View, Text, ScrollView, StyleSheet } from 'react-native'
+import React, { useEffect, useState } from 'react'
+const baseUrl = 'http://192.168.56.1:5000/api'
 
 const Companies = () => {
+  const [companies, setCompanies] = useState([])
+  const getCompanies = async () => {
+    try {
+      const response = await fetch(`${baseUrl}/companies`);
+      const data = await response.json();
+      setCompanies(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getCompanies()
+  }, [])
+
   return (
     <View style={styles.companiesList}>
       <Text
@@ -10,12 +26,16 @@ const Companies = () => {
       <ScrollView
         style={styles.scroll}
       >
-        <View style={styles.cart}>
-          <Text>Name : company ste</Text>
-          <Text>Manager : company manager</Text>
-          <Text>Phone : company num</Text>
-          <Text>Address : company address</Text>
-        </View>
+        {companies?.map((company) => (
+          <View style={styles.cart} key={company._id}>
+            <Text>Company name : {company.company_name}</Text>
+            <Text>Phone number : {company.phoneNumber}</Text>
+            <Text>Company Number : {company.companyNumber}</Text>
+            <Text>Company adress : {company.companyAddress}</Text>
+            <Text>Longitude : {company.longitude}</Text>
+            <Text>Latitude : {company.latitude}</Text>
+          </View>
+        ))}
       </ScrollView>
     </View>
   )
@@ -29,9 +49,9 @@ const styles = StyleSheet.create({
     marginLeft: 0,
     width: '100%',
     height: '100%',
-    borderBottomRightRadius : 10,
-    borderTopRightRadius : 10,
-    gap : 10
+    borderBottomRightRadius: 10,
+    borderTopRightRadius: 10,
+    gap: 10
   },
   cart: {
     backgroundColor: '#fff',
