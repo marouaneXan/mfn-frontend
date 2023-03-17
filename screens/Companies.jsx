@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, StyleSheet, TextInput, Button } from 'react-native'
+import { View, Text, FlatList, StyleSheet, TextInput, Button } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 const baseUrl = 'http://192.168.56.1:5000/api'
@@ -30,6 +30,17 @@ const Companies = () => {
     }
   };
 
+  const renderItem = ({ item }) => (
+    <View style={styles.cart} key={item._id}>
+      <Text>Company name : {item.companyName}</Text>
+      <Text>Phone number : {item.phoneNumber}</Text>
+      <Text>Company Number : {item.companyNumber}</Text>
+      <Text>Company adress : {item.companyAddress}</Text>
+      <Text>Longitude : {item.longitude}</Text>
+      <Text>Latitude : {item.latitude}</Text>
+    </View>
+  );
+
   return (
     <View style={styles.companiesList}>
       <View>
@@ -44,20 +55,12 @@ const Companies = () => {
       <Text
         style={styles.title}
       >Companies List :</Text>
-      <ScrollView
+      <FlatList
+        data={companies}
+        renderItem={renderItem}
+        keyExtractor={(item) => item._id}
         style={styles.scroll}
-      >
-        {companies?.map((company) => (
-          <View style={styles.cart} key={company._id}>
-            <Text>Company name : {company.companyName}</Text>
-            <Text>Phone number : {company.phoneNumber}</Text>
-            <Text>Company Number : {company.companyNumber}</Text>
-            <Text>Company adress : {company.companyAddress}</Text>
-            <Text>Longitude : {company.longitude}</Text>
-            <Text>Latitude : {company.latitude}</Text>
-          </View>
-        ))}
-      </ScrollView>
+      />
     </View>
   )
 }
