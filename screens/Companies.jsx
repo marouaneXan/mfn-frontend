@@ -21,29 +21,13 @@ const Companies = () => {
 
   const [companyName, setCompanyName] = useState();
 
-  const handleSearch = (companyName) => {
-    const options = {
-      method: 'POST',
-      url: `${baseUrl}/companies/find`,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Accept': 'application/json',
-        'Content-Type': 'application/json;charset=UTF-8'
-      },
-      data: {
-        companyName: companyName,
-      },
+  const handleSearch = async (companyName) => {
+    try {
+      const response = await axios.get(`${baseUrl}/companies/find?companyName=${companyName}`);
+      setCompanies(response.data);
+    } catch (error) {
+      console.error(error);
     }
-    axios
-      .request(options)
-      .then(function (response) {
-        setCompanies(response.data)
-      })
-      .catch(function (error) {
-        console.log(error);
-        console.log('Company not found')
-      }
-      )
   };
 
   return (
