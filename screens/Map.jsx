@@ -1,14 +1,34 @@
-import MapView, { Marker,Callout } from 'react-native-maps';
-import { StyleSheet, View,TouchableOpacity,Text } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
+import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import { useState, useEffect } from 'react';
 
-const Map = ({navigation}) => {
-  
+const baseUrl = 'http://192.168.56.1:5000/api'
+
+const Map = ({ navigation }) => {
+  const [companies, setCompanies] = useState([])
+  const getCompanies = async () => {
+    try {
+      const response = await fetch(`${baseUrl}/companies`);
+      const data = await response.json();
+      setCompanies(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getCompanies()
+  }, [])
+
   return (
     <View style={styles.container}>
-      <MapView style={styles.map} 
+      <MapView style={styles.map}
       >
-      <Marker coordinate={{latitude: 37.78825,longitude: -122.4324}}>
-      </Marker>
+        {
+          companies?.map((company) => (
+            <Marker coordinate={{ latitude: parseFloat(company.latitude), longitude: parseFloat(company.longitude) }} key={company._id} />
+          ))
+        }
       </MapView>
       <View style={styles.button}>
         <TouchableOpacity>
@@ -22,7 +42,7 @@ const Map = ({navigation}) => {
       </View>
     </View>
   )
-  
+
 }
 const styles = StyleSheet.create({
   container: {
@@ -32,12 +52,12 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '90%',
   },
-  button:{
-    padding:6
+  button: {
+    padding: 6
   },
-  link:{
-    textAlign:'center',
-    marginTop:2
+  link: {
+    textAlign: 'center',
+    marginTop: 2
   }
 });
 

@@ -1,5 +1,6 @@
-import { View, Text, ScrollView, StyleSheet } from 'react-native'
+import { View, Text, ScrollView, StyleSheet, TextInput, Button } from 'react-native'
 import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 const baseUrl = 'http://192.168.56.1:5000/api'
 
 const Companies = () => {
@@ -18,8 +19,44 @@ const Companies = () => {
     getCompanies()
   }, [])
 
+  const [companyName, setCompanyName] = useState();
+
+  const handleSearch = (companyName) => {
+    const options = {
+      method: 'POST',
+      url: `${baseUrl}/companies/find`,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json;charset=UTF-8'
+      },
+      data: {
+        companyName: companyName,
+      },
+    }
+    axios
+      .request(options)
+      .then(function (response) {
+        setCompanies(response.data)
+      })
+      .catch(function (error) {
+        console.log(error);
+        console.log('Company not found')
+      }
+      )
+  };
+
   return (
     <View style={styles.companiesList}>
+      <View>
+        <TextInput
+          style={styles.input}
+          placeholder="Search..."
+          value={companyName}
+          onChangeText={(text) => setCompanyName(text)}
+        />
+        <Button title="Search" onPress={() => handleSearch(companyName)} />
+      </View>
       <Text
         style={styles.title}
       >Companies List :</Text>
@@ -74,7 +111,17 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     paddingBottom: 10,
-  }
+  },
+  input: {
+    marginVertical: 12,
+    width: "100%",
+    padding: 6,
+    borderWidth: 1,
+    borderColor: "#ddd",
+    borderRadius: 6,
+    fontSize: 10,
+    shadowColor: "#000",
+  },
 
 });
 
