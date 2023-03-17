@@ -60,6 +60,9 @@ const Register = ({ navigation }) => {
                     .request(options)
                     .then(function (response) {
                         setSuccess(response.data.message)
+                        setTimeout(()=>{
+                            navigation.navigate('Companies')
+                        },1000)
                     })
                     .catch(function (error) {
                       console.error(error)
